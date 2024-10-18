@@ -1,7 +1,5 @@
 ## Project: Drift Game in the City
 
----
-
 ### Beschrijving
 In deze Unity-game rijd je door een stad en kan je driften. De stad is oneindig en genereert zichzelf terwijl je verder rijdt.
 
