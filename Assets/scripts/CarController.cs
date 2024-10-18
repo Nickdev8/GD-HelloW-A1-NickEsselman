@@ -13,6 +13,9 @@ public class CarController : MonoBehaviour
     public float turnSpeed = 5f;
     public float driftFactor = 0.95f;
     public float traction = 1f;
+    
+    // Minimum Y position for the car (ground level)
+    private float minYPosition = -12.0164f;
 
     private Rigidbody rb;
     private float currentSpeed = 0f;
@@ -42,32 +45,28 @@ public class CarController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    private void Update()
-    {
-        Debug.Log(isDrifting);
-    }
-
     void FixedUpdate()
     {
         HandleMovement();
         HandleDrift();
+        ConstrainHeight();
     }
 
     void HandleMovement()
     {
-        // Accelerate or decelerate the car
+        // Accelerate or decelerate the car based on input
         currentSpeed += moveInput * acceleration * Time.fixedDeltaTime;
         currentSpeed = Mathf.Clamp(currentSpeed, -maxSpeed, maxSpeed);
 
-        // Apply forward movement based on current speed
+        // Apply forward movement
         Vector3 forwardMove = transform.forward * currentSpeed * Time.fixedDeltaTime;
-        rb.MovePosition(rb.position + forwardMove);
+        rb.linearVelocity = new Vector3(forwardMove.x, rb.linearVelocity.y, forwardMove.z); // Preserve vertical velocity
 
-        // Steering logic - this rotates the car smoothly based on forward velocity
-        if (currentSpeed > 0.1f || currentSpeed < -0.1f) // Ensure the car is moving
+        // Steering logic - only turn when the car is moving
+        if (Mathf.Abs(currentSpeed) > 0.1f)
         {
             float turn = turnInput * turnSpeed * Time.fixedDeltaTime;
-            Quaternion turnRotation = Quaternion.Euler(0f, turn * Mathf.Sign(currentSpeed), 0f); // Apply rotation direction based on movement direction
+            Quaternion turnRotation = Quaternion.Euler(0f, turn * Mathf.Sign(currentSpeed), 0f);
             rb.MoveRotation(rb.rotation * turnRotation);
         }
 
@@ -80,7 +79,7 @@ public class CarController : MonoBehaviour
 
     void HandleDrift()
     {
-        // Simple drift detection based on turning and speed
+        // Detect drift based on turning and forward movement
         if (Mathf.Abs(turnInput) > 0.5f && moveInput > 0.1f)
         {
             isDrifting = true;
@@ -90,20 +89,29 @@ public class CarController : MonoBehaviour
             isDrifting = false;
         }
 
-        // Adjust sideways friction when drifting
+        // Adjust velocity and traction if drifting
         if (isDrifting)
         {
             Vector3 forwardVelocity = transform.forward * Vector3.Dot(rb.linearVelocity, transform.forward);
             Vector3 sidewaysVelocity = transform.right * Vector3.Dot(rb.linearVelocity, transform.right);
 
-            rb.linearVelocity = forwardVelocity + sidewaysVelocity * driftFactor; // Reduce sideways velocity (drifting effect)
+            rb.linearVelocity = forwardVelocity + sidewaysVelocity * driftFactor;
 
-            // Lower traction when drifting
-            rb.linearDamping = traction * 0.5f;
+            rb.linearDamping = traction * 0.5f; // Reduce traction while drifting
         }
         else
         {
-            rb.linearDamping = traction; // Normal traction when not drifting
+            rb.linearDamping = traction; // Reset to normal traction
+        }
+    }
+
+    void ConstrainHeight()
+    {
+        // Ensure the car does not go below the minimum Y position (ground level)
+        if (rb.position.y < minYPosition)
+        {
+            Vector3 constrainedPosition = new Vector3(rb.position.x, minYPosition, rb.position.z);
+            rb.MovePosition(constrainedPosition); // Snap the car back to the minimum height
         }
     }
 }
