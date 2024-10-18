@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 8002569241987137075}
   - component: {fileID: 1123310560171702266}
   - component: {fileID: 3786967805786532064}
-  - component: {fileID: 1042598547529645704}
+  - component: {fileID: 3038954237511419153}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -273,8 +273,8 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
---- !u!135 &1042598547529645704
-SphereCollider:
+--- !u!136 &3038954237511419153
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -291,9 +291,11 @@ SphereCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.1
-  m_Center: {x: -6.8212376e-15, y: 0.09000001, z: 0.029999986}
+  serializedVersion: 2
+  m_Radius: 0.29103315
+  m_Height: 0.89067864
+  m_Direction: 1
+  m_Center: {x: -1.6661881e-13, y: 0.3667773, z: 0.043544054}
 --- !u!1 &377262970941464512
 GameObject:
   m_ObjectHideFlags: 0
@@ -3374,7 +3376,6 @@ MonoBehaviour:
   rotationSpeed: 5
   armoture: {fileID: 4373334780079509402}
   animator: {fileID: 5998895872483541767}
-  collider: {fileID: 0}
 --- !u!95 &5998895872483541767
 Animator:
   serializedVersion: 7
