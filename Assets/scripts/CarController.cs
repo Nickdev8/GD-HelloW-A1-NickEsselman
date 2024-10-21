@@ -6,14 +6,13 @@ using UnityEngine.InputSystem;
 
 public class CarController : MonoBehaviour
 {
-    [Header("Car Settings")]
-    public float maxSpeed = 1000f;
+    [Header("Car Settings")] public float maxSpeed = 1000f;
     public float acceleration = 20f;
     public float brakingForce = 50f;
     public float turnSpeed = 5f;
     public float driftFactor = 0.95f;
     public float traction = 1f;
-    
+
     // Minimum Y position for the car (ground level)
     private float minYPosition = -12.0164f;
 
@@ -28,8 +27,8 @@ public class CarController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         Vector2 inputVector = context.ReadValue<Vector2>();
-        moveInput = inputVector.y;  // Forward/Backward
-        turnInput = inputVector.x;  // Left/Right
+        moveInput = inputVector.y; // Forward/Backward
+        turnInput = inputVector.x; // Left/Right
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -42,6 +41,12 @@ public class CarController : MonoBehaviour
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+
+        Cursor.lockState = CursorLockMode.Locked;
+
+        Cursor.lockState = CursorLockMode.Confined;
+
         rb = GetComponent<Rigidbody>();
     }
 
@@ -60,7 +65,8 @@ public class CarController : MonoBehaviour
 
         // Apply forward movement
         Vector3 forwardMove = transform.forward * currentSpeed * Time.fixedDeltaTime;
-        rb.linearVelocity = new Vector3(forwardMove.x, rb.linearVelocity.y, forwardMove.z); // Preserve vertical velocity
+        rb.linearVelocity =
+            new Vector3(forwardMove.x, rb.linearVelocity.y, forwardMove.z); // Preserve vertical velocity
 
         // Steering logic - only turn when the car is moving
         if (Mathf.Abs(currentSpeed) > 0.1f)
@@ -112,6 +118,15 @@ public class CarController : MonoBehaviour
         {
             Vector3 constrainedPosition = new Vector3(rb.position.x, minYPosition, rb.position.z);
             rb.MovePosition(constrainedPosition); // Snap the car back to the minimum height
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("wall"))
+        {
+            Debug.Log(other.gameObject.name + " collided with ground");
+            currentSpeed = 0;
         }
     }
 }

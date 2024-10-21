@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: c1c961cbd00909b45b34d97fd7df5cbf, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -42,7 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -166,9 +167,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2683255503203953481, guid: e4c3de05870704d4196ddbf0426b2759, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5246760176340886404, guid: e4c3de05870704d4196ddbf0426b2759, type: 3}
       propertyPath: m_Name
       value: playerComps
+      objectReference: {fileID: 0}
+    - target: {fileID: 5246760176340886404, guid: e4c3de05870704d4196ddbf0426b2759, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140480300506134550, guid: e4c3de05870704d4196ddbf0426b2759, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -185,7 +198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 356093807}
   - component: {fileID: 356093806}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: mapspawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,7 +247,7 @@ GameObject:
   - component: {fileID: 410087041}
   - component: {fileID: 410087040}
   - component: {fileID: 410087042}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Directional Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,13 +265,13 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -295,7 +308,7 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 5000
+  m_ColorTemperature: 12783
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -430,7 +443,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1178803947}
   - component: {fileID: 1178803946}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CinemachineBrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -477,8 +490,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1178803945}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2845822, y: 0.000000012762533, z: -0.000000003788644, w: 0.95865166}
-  m_LocalPosition: {x: 13.780001, y: 11.240023, z: 49.449997}
+  m_LocalRotation: {x: 0.13908085, y: -1.1985507e-10, z: 1.6833146e-11, w: 0.99028105}
+  m_LocalPosition: {x: 13.780001, y: 9.149618, z: 47.527588}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

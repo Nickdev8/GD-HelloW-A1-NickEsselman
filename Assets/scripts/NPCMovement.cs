@@ -62,7 +62,7 @@ public class NPCMovement : MonoBehaviour
         isRagdoll = state;
 
         // Enable or disable the Animator
-        animator.enabled = !state;
+        //animator.enabled = !state;
 
         // If entering ragdoll mode, add colliders and rigidbodies
         if (state)
@@ -77,32 +77,20 @@ public class NPCMovement : MonoBehaviour
         // Iterate through all children of the NPC
         foreach (Transform child in parent)
         {
-            // Add a collider (box collider) to each child
-            Collider collider = child.gameObject.AddComponent<SphereCollider>();
-
-            // Optionally, set specific collider settings, e.g., size, center
-            if (collider is SphereCollider spherecollider)
-            {
-                // Set size and center if needed (this is just an example)
-                spherecollider.radius = 0.1f; // Adjust based on your model
-                spherecollider.center = Vector3.zero; // Adjust if necessary
-            }
-
-            // Add a rigidbody to each child
-            Rigidbody rb = child.gameObject.AddComponent<Rigidbody>();
-            rb.isKinematic = false; // Ensure it can respond to physics
-            rb.mass = 1; // Set mass appropriately for each body part
-
+            Rigidbody rb = child.gameObject.GetComponent<Rigidbody>();
+            
+            if(rb != null)
+                rb.isKinematic = false;
 
             if (child.transform.childCount > 0)
                 AddCollidersAndRigidbodies(child);
         }
     }
 
-    // Called when the player collides with the NPC
-    private void OnCollisionEnter(Collision collision)
+    // Called when the player enters the NPC's trigger zone
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player") && !isRagdoll)
+        if (other.gameObject.CompareTag("Player") && !isRagdoll)
         {
             SetRagdollState(true); // Activate ragdoll mode
         }
