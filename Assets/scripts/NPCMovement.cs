@@ -60,9 +60,9 @@ public class NPCMovement : MonoBehaviour
     private void SetRagdollState(bool state)
     {
         isRagdoll = state;
-
+    
         // Enable or disable the Animator
-        //animator.enabled = !state;
+        animator.enabled = !state;
 
         // If entering ragdoll mode, add colliders and rigidbodies
         if (state)
@@ -74,14 +74,14 @@ public class NPCMovement : MonoBehaviour
     // Adds colliders and rigidbodies to all children of the armature
     private void AddCollidersAndRigidbodies(Transform parent)
     {
+        Rigidbody rb = parent.gameObject.GetComponent<Rigidbody>();
+            
+        if(rb != null)
+            rb.isKinematic = false;
+        
         // Iterate through all children of the NPC
         foreach (Transform child in parent)
         {
-            Rigidbody rb = child.gameObject.GetComponent<Rigidbody>();
-            
-            if(rb != null)
-                rb.isKinematic = false;
-
             if (child.transform.childCount > 0)
                 AddCollidersAndRigidbodies(child);
         }
