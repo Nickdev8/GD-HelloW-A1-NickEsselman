@@ -116,7 +116,7 @@ public class CarController : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("wall"))
+        if (other.gameObject.layer == 8)
         {
             Debug.Log(other.gameObject.name + " collided with ground");
             currentSpeed = 0;
